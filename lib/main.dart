@@ -4,7 +4,6 @@ import 'package:shamo/pages/home/main_page.dart';
 import 'package:shamo/pages/sign_in_page.dart';
 import 'package:shamo/pages/sign_up_page.dart';
 import 'package:shamo/pages/splash_page.dart';
-import 'theme.dart';
 
 void main() => runApp(MyApp());
 
