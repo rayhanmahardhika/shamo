@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shamo/pages/widgets/checkout_card.dart';
+import 'package:shamo/providers/cart_provider.dart';
 import 'package:shamo/theme.dart';
 
 class CheckoutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
+
     PreferredSizeWidget header() {
       return AppBar(
         backgroundColor: backgroundColor1,
@@ -37,9 +41,13 @@ class CheckoutPage extends StatelessWidget {
                     fontWeight: medium,
                   ),
                 ),
-                CheckoutCard(),
-                CheckoutCard(),
-                CheckoutCard(),
+                Column(
+                  children: cartProvider.carts
+                      .map(
+                        (cart) => CheckoutCard(cart),
+                      )
+                      .toList(),
+                ),
               ],
             ),
           ),
@@ -161,7 +169,7 @@ class CheckoutPage extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '2 Items',
+                      '${cartProvider.totalItems()} Item(s)',
                       style: primaryTextStyle.copyWith(
                         fontWeight: medium,
                       ),
@@ -181,7 +189,7 @@ class CheckoutPage extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '\$575.96',
+                      '\$${cartProvider.totalPrice()}',
                       style: primaryTextStyle.copyWith(
                         fontWeight: medium,
                       ),
@@ -228,7 +236,7 @@ class CheckoutPage extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '\$575.92',
+                      '\$${cartProvider.totalPrice()}',
                       style: priceTextStyle.copyWith(
                         fontWeight: semiBold,
                       ),
